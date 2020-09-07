@@ -36,6 +36,7 @@ Then try completion:
 python proto.py <Tab>
 # Suggestions: --help --proto -h
 
+chmod +x proto.py
 ./proto.py --proto tt<Tab>
 # Suggestions: http https
 ```
