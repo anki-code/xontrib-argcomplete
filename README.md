@@ -19,7 +19,7 @@ Current version of completion is working only for commands that starts with:
  * `<path/to/python_script.py> ...`
 
 For example create `proto.py` with the content:
-```
+```python
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
 import argparse, argcomplete
@@ -32,7 +32,7 @@ args = parser.parse_args()
 print('ok')
 ```
 Then try completion:
-```
+```bash
 python proto.py <Tab>
 # Suggestions: --help --proto -h
 
