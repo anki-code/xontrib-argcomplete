@@ -1,6 +1,6 @@
 #!/usr/bin/env xonsh
 
-import re, subprocess
+import sys, re, subprocess
 from pathlib import Path
 
 def _SC(cmds, env):
@@ -41,7 +41,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
 
     if found_argcomplete:
         env = {
-            "PATH": ':'.join(__xonsh__.env['PATH']),
+            "PATH": ':'.join(sys.path) + ':' + ':'.join(__xonsh__.env['PATH']),
             "_ARGCOMPLETE": str(1),
             "_ARGCOMPLETE_IFS":'\n',
             "COMP_LINE": str(line),
