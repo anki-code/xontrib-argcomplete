@@ -14,11 +14,7 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 ```
 
 ## Usage
-Current version of completion is working only for commands that starts with:
- * `python <path/to/python_script.py> ...`
- * `<path/to/python_script.py> ...`
-
-For example create `proto.py` with the content:
+For example create `proto.py`:
 ```python
 #!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
