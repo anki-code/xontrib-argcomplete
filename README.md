@@ -42,4 +42,4 @@ chmod +x proto.py
 ```
 
 ## Known issues
-This is the alpha version of the xontrib-argcomplete and the proof of concept. It was tested on Ubuntu+Conda+Xonsh and on Mac.
+The xontrib was tested on Ubuntu+Conda+Xonsh and on Mac.
