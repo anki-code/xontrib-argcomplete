@@ -36,7 +36,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     if found_argcomplete:
         with __xonsh__.env.swap(_ARGCOMPLETE=str(1), _ARGCOMPLETE_IFS='\n', COMP_LINE=str(line), COMP_POINT=str(begidx)):
             result = __xonsh__.subproc_captured_object(['bash', '-c', f"{py} '{file}' 8>&1"])
-            print(result, file=open(os.devnull, 'w')) # workaround for xonsh issue when object property is empty until use
+            print(result, file=open(os.devnull, 'w')) # workaround https://github.com/xonsh/xonsh/issues/3394
         tokens = set([t.replace(r'\ ', ' ') for t in result.output.split('\n') if prefix in t])
 
         if len(tokens) == 0:
