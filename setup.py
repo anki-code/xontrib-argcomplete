@@ -9,7 +9,7 @@ except (IOError, OSError):
 
 setup(
     name='xontrib-argcomplete',
-    version='0.0.2',
+    version='0.0.3',
     license='BSD',
     author='anki-code',
     author_email='author@example.com',
