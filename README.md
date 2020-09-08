@@ -43,18 +43,3 @@ chmod +x proto.py
 
 ## Known issues
 This is the alpha version of the xontrib-argcomplete and the proof of concept. It was tested on Ubuntu+Conda+Xonsh and on Mac.
-
-### No completions or "Completions not found" message
-
-To get completions list for your Python script it runs in subprocess shell (`sh` by default) with appropriate argcomplete environment variables. The common reason you can get empty list or "Completions not found" message" is that you have different setting for Python in xonsh and in `sh` shell. 
-
-To test that your `script.py` with `argparse` and `argcomplete` is working properly in `sh` try to run:
-```bash
-sh -c 'python script.py'
-# OR
-sh -c 'python script.py --help' # to avoid full running the script
-# AND check the Python version and paths
-sh -c 'python -V'
-sh -c 'python -c "import sys; print(sys.path)"'
-```
-If you see the errors this is the cause why xontrib returns no completions. The causes may be different: xontrib-argcomplete may not properly set the environment and PR to fix is required or your environment is complex and you should synchronize xonsh and `sh`.
