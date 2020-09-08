@@ -3,7 +3,7 @@ Adding support of <a href="https://github.com/kislyuk/argcomplete">kislyuk/argco
 </p>
 
 <p align="center">  
-If you like the idea of xontrib-argcomplete click ⭐ on the repo and stay tuned by watching releases.
+If you like the idea click ⭐ on the repo and stay tuned by watching releases.
 </p>
 
 ## Install
