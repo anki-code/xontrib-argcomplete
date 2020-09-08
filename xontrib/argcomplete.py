@@ -7,9 +7,16 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     """
     Adding support of kislyuk/argcomplete to xonsh.
     """
-    m = re.match('^python[0-9.]* ([\']*.+?\\.py[\']*)', line)
-    m = re.match('^([\']*.+?\\.py[\']*)', line) if not m else m
-    file = m.group(1) if m else None
+    file = None
+    m = re.match('^(python[0-9.]*) ([\']*.+?\\.py[\']*)', line)
+    if m:
+        py = m.group(1)
+        file = m.group(2)
+    else:
+        m = re.match('^([\']*.+?\\.py[\']*)', line)
+        if m:
+            py = 'python'  # TODO: get from shebang
+            file = m.group(1)
 
     if not file:
         return None
@@ -28,7 +35,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
 
     if found_argcomplete:
         with __xonsh__.env.swap(_ARGCOMPLETE=str(1), _ARGCOMPLETE_IFS='\n', COMP_LINE=str(line), COMP_POINT=str(begidx)):
-            result = __xonsh__.subproc_captured_object(['bash', '-c', f"python '{file}' 8>&1"])
+            result = __xonsh__.subproc_captured_object(['bash', '-c', f"{py} '{file}' 8>&1"])
             print(result, file=open(os.devnull, 'w')) # workaround for xonsh issue when object property is empty until use
         tokens = set([t.replace(r'\ ', ' ') for t in result.output.split('\n') if prefix in t])
 
