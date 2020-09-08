@@ -37,4 +37,3 @@ chmod +x proto.py
 # Suggestions: http https
 ```
 
-The xontrib was tested on Ubuntu+Conda+Xonsh and on Mac+Brew+PyPi+Xonsh.
