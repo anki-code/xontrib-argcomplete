@@ -3,31 +3,20 @@
 import sys, re, subprocess
 from pathlib import Path
 
-def _SC(cmds, env):
-    """
-    Run shell command (workaround for https://github.com/xonsh/xonsh/issues/3746)
-    """
-    proc = subprocess.Popen(cmds, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env, shell=True)
-    [out, err] = proc.communicate()
-    return (out, err, proc)
-
 def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     """
     Adding support of kislyuk/argcomplete to xonsh.
     """
     file = None
     m = re.match('^python[0-9.]* ([\']*.+?\\.py[\']*)', line)
-    if not m:
-        m = re.match('^([\']*.+?\\.py[\']*)', line)
+    m = re.match('^([\']*.+?\\.py[\']*)', line) if not m else m
 
     if m:
         file = m.group(1)
     else:
         return None
 
-    if file[0] == "'" and file[-1] == "'":
-        file = file[1:-1]
-
+    file = file[1:-1] if file[0] == "'" and file[-1] == "'" else file
     filep = Path(file)
     if not filep.exists():
         return (('argcomplete: file does not exists',), len(prefix))
@@ -40,16 +29,10 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
                 break
 
     if found_argcomplete:
-        env = {
-            "PATH": ':'.join(sys.path) + ':' + ':'.join(__xonsh__.env['PATH']),
-            "_ARGCOMPLETE": str(1),
-            "_ARGCOMPLETE_IFS":'\n',
-            "COMP_LINE": str(line),
-            "COMP_POINT": str(begidx)
-        }
-        o, e, proc = _SC('python "'+file+'" 8>&1', env=env)
+        with __xonsh__.env.swap(_ARGCOMPLETE=str(1), _ARGCOMPLETE_IFS='\n', COMP_LINE=str(line), COMP_POINT=str(begidx)):
+            result = __xonsh__.subproc_captured_inject(['bash', '-c', f"python '{file}' 8>&1"])
 
-        tokens = set([t for t in o.decode().split('\n') if prefix in t])
+        tokens = set([t for t in result if prefix in t])
 
         if len(tokens) == 0:
             return (('argcomplete: completions not found',), len(prefix))
