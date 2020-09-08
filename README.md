@@ -42,4 +42,4 @@ chmod +x proto.py
 ```
 
 ## Known issues
-The xontrib was tested on Ubuntu+Conda+Xonsh and on Mac+Brew+PyPi.
+The xontrib was tested on Ubuntu+Conda+Xonsh and on Mac+Brew+PyPi+Xonsh.
