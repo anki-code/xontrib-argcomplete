@@ -37,3 +37,5 @@ chmod +x proto.py
 # Suggestions: http https
 ```
 
+## Additional links
+* [Documentation for environment variables that used by argcomplete](https://github.com/kislyuk/argcomplete/issues/319)
