@@ -15,9 +15,9 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 
 ## Usage
 
-Don't forget that you should add argcomplete support to your script before usage. The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
+Don't forget that you should [add argcomplete support](https://kislyuk.github.io/argcomplete/#synopsis) to your script before usage. The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
 
-The [argcomplete](https://kislyuk.github.io/argcomplete/#synopsis) xonsh completer will be activated on Linux with this cases:
+The argcomplete xonsh completer will be activated on Linux with this cases:
 ```bash
 python script.py
 ./script.py
