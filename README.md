@@ -25,8 +25,8 @@ xonsh script.xsh
 ./script.xsh
 ./path/script.xsh
 
-./script           # shebang should has "env python" or "env xonsh"
-script             # script should be found in $PATH and shebang should has "env python" or "env xonsh"
+./script   # shebang should has "env python" or "env xonsh"
+script     # script should be found in $PATH and shebang should has "env python" or "env xonsh"
 ```
 The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
 
