@@ -38,14 +38,14 @@ xontrib load argcomplete
 cd /tmp && git clone https://github.com/anki-code/xontrib-argcomplete
 cd xontrib-argcomplete/tests
 
-python proto.py <Tab>
-# Suggestions: --help --proto -h
+python proto.py <Tab>  # Suggestions: --help --proto -h
+./proto.py --proto tt<Tab>  # Suggestions: http https
+./proto.xsh --proto tt<Tab>  # Suggestions: http https
+./proto --proto tt<Tab>  # Suggestions: http https
 
-./proto.py --proto tt<Tab>
-# Suggestions: http https
-
-./proto.xsh --proto tt<Tab>
-# Suggestions: http https
+sudo cp ./proto /bin/proto && sudo chmod +x /bin/proto
+proto --proto tt<Tab>  # Suggestions: http https
+sudo rm /bin/proto
 ```
 
 ## Known issues
