@@ -57,5 +57,5 @@ Files or paths with spaces in names is not supported now and completion will not
 
 ## Development
 * To switch on the debug mode run `$XONTRIB_ARGCOMPLETE_DEBUG = True`.
-* [Argcomplete environment variables](https://github.com/kislyuk/argcomplete/issues/319)
+* [Argcomplete environment variables](https://github.com/kislyuk/argcomplete/issues/319#issuecomment-693295017)
 * [Argcomplete documentation](https://kislyuk.github.io/argcomplete/)
