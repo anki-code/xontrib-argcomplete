@@ -34,13 +34,13 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
                 if Path(maybe_file).exists():
                     file = str(maybe_file)
                 else:
-                    maybe_file = which(maybe_file)
-                    if maybe_file and Path(maybe_file).exists():
-                        file = str(maybe_file)
+                    which_maybe_file = which(maybe_file)
+                    if which_maybe_file and Path(which_maybe_file).exists():
+                        file = str(which_maybe_file)
                     else:
-                        maybe_file = _get_subproc_output(['bash', '-c','which '+maybe_file]).strip()
-                        if maybe_file and Path(maybe_file).exists():
-                            file = maybe_file
+                        which_maybe_file = _get_subproc_output(['bash', '-c','which '+maybe_file]).strip()
+                        if which_maybe_file and Path(which_maybe_file).exists():
+                            file = which_maybe_file
 
     if not file:
         if __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False):
