@@ -15,7 +15,7 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 
 ## Usage
 
-The [argcomplete](https://kislyuk.github.io/argcomplete/#synopsis) xonsh completer will be activated with this cases:
+The [argcomplete](https://kislyuk.github.io/argcomplete/#synopsis) xonsh completer will be activated on Linux with this cases:
 ```bash
 python script.py
 ./script.py
