@@ -44,9 +44,8 @@ python proto.py <Tab>  # Suggestions: --help --proto -h
 ./proto.xsh --proto tt<Tab>  # Suggestions: http https
 ./proto --proto tt<Tab>  # Suggestions: http https
 
-sudo cp ./proto /bin/proto && sudo chmod +x /bin/proto
+$PATH.append($PWD)
 proto --proto tt<Tab>  # Suggestions: http https
-sudo rm /bin/proto
 ```
 
 ## Known issues
