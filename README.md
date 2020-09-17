@@ -15,6 +15,8 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 
 ## Usage
 
+Don't forget that you should add argcomplete support to your script before usage. The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
+
 The [argcomplete](https://kislyuk.github.io/argcomplete/#synopsis) xonsh completer will be activated on Linux with this cases:
 ```bash
 python script.py
@@ -28,7 +30,6 @@ xonsh script.xsh
 ./script   # shebang should has "env python" or "env xonsh"
 script     # script should be found in $PATH and shebang should has "env python" or "env xonsh"
 ```
-The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
 
 ## Example
 ```bash
