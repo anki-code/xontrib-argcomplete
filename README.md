@@ -17,7 +17,7 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 
 You should [add argcomplete support](https://kislyuk.github.io/argcomplete/#synopsis) to your script before usage. The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
 
-The argcomplete xonsh completer will be activated on Linux with this cases:
+The argcomplete xonsh completer will be activated with this cases:
 ```bash
 python script.py
 ./script.py
@@ -50,6 +50,8 @@ sudo rm /bin/proto
 ```
 
 ## Known issues
+
+Current version support Linux/Mac only.
 
 Files or paths with spaces in names is not supported now and completion will not be activated. PRs are welcome!
 
