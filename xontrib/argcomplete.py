@@ -28,7 +28,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
 
     found_argcomplete = False
     with open(filep) as f:
-        for x in range(100):
+        for x in range(10):
             if 'PYTHON_ARGCOMPLETE_OK' in next(f):
                 found_argcomplete = True
                 break
