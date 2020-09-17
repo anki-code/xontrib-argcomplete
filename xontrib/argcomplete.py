@@ -8,15 +8,15 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     Adding support of kislyuk/argcomplete to xonsh.
     """
     file = None
-    m = re.match('^(python[0-9.]*) ([\']*.+?\\.py[\']*)', line)
+    m = re.match('^(python[0-9.]*|xonsh) ([\']*.+?(\\.py[0-9.]*|\\.xsh)[\']*)', line)
     if m:
         py = m.group(1)
         file = m.group(2)
     else:
-        m = re.match('^([\']*.+?\\.py[\']*)', line)
+        m = re.match('^([\']*.+?(\\.py|\\.xsh)[\']*)', line)
         if m:
-            py = 'python'  # TODO: get from shebang
             file = m.group(1)
+            py = 'xonsh' if file.endswith('.xsh') else 'python'
 
     if not file:
         return None
@@ -24,7 +24,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     file = file[1:-1] if file[0] == "'" and file[-1] == "'" else file
     filep = Path(file)
     if not filep.exists():
-        return ((prefix, 'argcomplete: file does not exists'), len(prefix))
+        return ((prefix, 'xontrib-argcomplete: file does not exists'), len(prefix))
 
     found_argcomplete = False
     with open(filep) as f:
@@ -40,7 +40,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
         tokens = set([t.replace(r'\ ', ' ') for t in result.output.split('\n') if prefix in t])
 
         if len(tokens) == 0:
-            return ((prefix, 'argcomplete: completions not found'), len(prefix))
+            return ((prefix, 'xontrib-argcomplete: completions not found'), len(prefix))
 
         return (tokens, len(prefix))
 
