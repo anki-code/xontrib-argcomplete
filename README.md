@@ -8,32 +8,39 @@ If you like the idea click ⭐ on the repo and stay tuned by watching releases.
 
 ## Install
 ```shell script
-xpip install -U xontrib-argcomplete
+xpip install xontrib-argcomplete
 echo 'xontrib load argcomplete' >> ~/.xonshrc
 # Reload xonsh
 ```
 
 ## Usage
-For example create `proto.py`:
-```python
-#!/usr/bin/env python
-# PYTHON_ARGCOMPLETE_OK
-import argparse, argcomplete
-from argcomplete.completers import ChoicesCompleter
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--proto").completer=ChoicesCompleter(('http', 'https', 'ssh', 'rsync', 'wss'))
-argcomplete.autocomplete(parser)
-args = parser.parse_args()
-print('ok')
-```
-Then try completion:
+The [argcomplete](https://kislyuk.github.io/argcomplete/#synopsis) xonsh completer will be activated with this cases:
 ```bash
+./script.py        <Tab>
+./path/script.py   <Tab>
+python script.py   <Tab>
+./script.xsh       <Tab>
+./path/script.xsh  <Tab>
+xonsh script.xsh   <Tab>
+```
+The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
+
+## Example
+```bash
+xpip install xontrib-argcomplete
+xontrib load argcomplete
+
+cd /tmp && git clone https://github.com/anki-code/xontrib-argcomplete
+cd xontrib-argcomplete/tests
+
 python proto.py <Tab>
 # Suggestions: --help --proto -h
 
-chmod +x proto.py
 ./proto.py --proto tt<Tab>
+# Suggestions: http https
+
+./proto.xsh --proto tt<Tab>
 # Suggestions: http https
 ```
 
