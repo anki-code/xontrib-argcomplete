@@ -17,12 +17,16 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 
 The [argcomplete](https://kislyuk.github.io/argcomplete/#synopsis) xonsh completer will be activated with this cases:
 ```bash
-./script.py        <Tab>
-./path/script.py   <Tab>
-python script.py   <Tab>
-./script.xsh       <Tab>
-./path/script.xsh  <Tab>
-xonsh script.xsh   <Tab>
+python script.py
+./script.py
+./path/script.py
+
+xonsh script.xsh
+./script.xsh
+./path/script.xsh
+
+./script           # shebang should has "python" or "xonsh"
+script             # script should be found in $PATH and shebang should has "python" or "xonsh"
 ```
 The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
 
@@ -43,6 +47,10 @@ python proto.py <Tab>
 ./proto.xsh --proto tt<Tab>
 # Suggestions: http https
 ```
+
+## Known issues
+
+Files or paths with spaces in names is not supported now and completion will not be activated. PRs are welcome!
 
 ## Development
 * [Documentation for environment variables that used by argcomplete](https://github.com/kislyuk/argcomplete/issues/319)
