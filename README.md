@@ -51,9 +51,11 @@ sudo rm /bin/proto
 
 ## Known issues
 
-Current version support Linux/Mac only.
+Current version supports Linux/Mac only.
 
 Files or paths with spaces in names is not supported now and completion will not be activated. PRs are welcome!
 
 ## Development
-* [Documentation for environment variables that used by argcomplete](https://github.com/kislyuk/argcomplete/issues/319)
+* To switch on the debug mode run `$XONTRIB_ARGCOMPLETE_DEBUG = True`.
+* [Argcomplete environment variables](https://github.com/kislyuk/argcomplete/issues/319)
+* [Argcomplete documentation](https://kislyuk.github.io/argcomplete/)
