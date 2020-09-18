@@ -6,6 +6,8 @@
 If you like the idea click ⭐ on the repo and stay tuned by watching releases.
 </p>
 
+<img src="https://raw.githubusercontent.com/anki-code/xontrib-argcomplete/master/static/example.png" alt="[Demo]">
+
 ## Install
 ```shell script
 xpip install xontrib-argcomplete
