@@ -9,11 +9,11 @@ except (IOError, OSError):
 
 setup(
     name='xontrib-argcomplete',
-    version='0.2.4',
+    version='0.2.5',
     license='BSD',
     author='anki-code',
     author_email='author@example.com',
-    description="Adding support of kislyuk/argcomplete to xonsh.",
+    description="Argcomplete support for python and xonsh scripts in xonsh shell. ",
     long_description=long_description,
     long_description_content_type='text/markdown',
     python_requires='>=3.6',
