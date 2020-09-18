@@ -7,7 +7,8 @@ If you like the idea click ⭐ on the repo and stay tuned by watching releases.
 </p>
 
 <p align="center">  
-<img src="https://raw.githubusercontent.com/anki-code/xontrib-argcomplete/master/static/xontrib-argcomplete-demo.png" alt="[Demo]">
+<img src="https://raw.githubusercontent.com/anki-code/xontrib-argcomplete/master/static/xontrib-argcomplete-demo.png" alt="[Demo]"><br />
+<small><i>Screenshot made with <a href="https://github.com/anki-code/xontrib-prompt-bar">xontrib-prompt-bar</a> and <a href="https://konsole.kde.org/">Konsole</a>.</i></small>
 </p>
 
 ## Install
