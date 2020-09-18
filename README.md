@@ -7,7 +7,7 @@ If you like the idea click ⭐ on the repo and stay tuned by watching releases.
 </p>
 
 <p align="center">  
-<img src="https://raw.githubusercontent.com/anki-code/xontrib-argcomplete/master/static/example.png" alt="[Demo]">
+<img src="https://raw.githubusercontent.com/anki-code/xontrib-argcomplete/master/static/xontrib-argcomplete-demo.png" alt="[Demo]">
 </p>
 
 ## Install
