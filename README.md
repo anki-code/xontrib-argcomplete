@@ -1,5 +1,5 @@
 <p align="center">
-Adding support of <a href="https://github.com/kislyuk/argcomplete">argcomplete</a> to <a href="https://xon.sh">xonsh</a>. Xonsh scripts supported.
+<a href="https://github.com/kislyuk/argcomplete">Argcomplete</a> support in <a href="https://xon.sh">xonsh</a>. Xonsh scripts supported.
 </p>
 
 <p align="center">  
