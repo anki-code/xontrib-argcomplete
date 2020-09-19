@@ -32,8 +32,9 @@ xonsh script.xsh
 ./script.xsh
 ./path/script.xsh
 
-./script   # shebang should has "env python" or "env xonsh"
-script     # script should be found in $PATH and shebang should has "env python" or "env xonsh"
+# scripts without extension should have "env python" or "env xonsh" or path to python/xonsh in the shebang
+./script
+script    # script should be found in $PATH
 ```
 
 ## Example
