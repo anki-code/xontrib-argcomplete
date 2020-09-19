@@ -63,11 +63,17 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
         for x in range(10):
             fline = next(f)
             if x == 0 and not py:
-                if 'env xonsh' in fline:
-                    py = 'xonsh'
-                elif 'env python' in fline:
-                    m = re.match('.*env (python[0-9.]*).*', fline)
-                    py = m.group(1) if m else None
+                m = re.match('.*env (python[0-9.]*|xonsh).*', fline)
+                if m:
+                    py = m.group(1)
+                else:
+                    m = re.match('#!(/.*/(python[0-9.]*|xonsh))', fline)
+                    if m:
+                        py = m.group(1)
+                        if not Path(py).exists():
+                            if __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False):
+                                return ((prefix, 'xontrib-argcomplete DEBUG: the python/xonsh path in the script`s shebang does not exists'), len(prefix))
+                            py = None
 
             if 'PYTHON_ARGCOMPLETE_OK' in fline:
                 found_argcomplete = True
