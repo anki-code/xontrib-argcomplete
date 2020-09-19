@@ -25,7 +25,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
             file = m.group(1)
             py = 'xonsh' if file.endswith('.xsh') else 'python'
         else:
-            m = re.match('^(.+?)(\s+|$)', line)
+            m = re.match('^(.+?)(\\s+|$)', line)
             if m:
                 if not m.group(2):
                     return None
