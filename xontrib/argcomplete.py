@@ -38,7 +38,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
                     if which_maybe_file and Path(which_maybe_file).exists():
                         file = str(which_maybe_file)
                     else:
-                        which_maybe_file = _get_subproc_output(['which', maybe_file]).strip()
+                        which_maybe_file = _get_subproc_output(['which', maybe_file, '2>', '/dev/null']).strip()
                         if which_maybe_file and Path(which_maybe_file).exists():
                             file = which_maybe_file
 
