@@ -58,7 +58,7 @@ proto --proto tt<Tab>  # Suggestions: http https
 
 Current version supports Linux/Mac only.
 
-Files or paths with spaces in names is not supported now and completion will not be activated. PRs are welcome!
+Files or paths with spaces in names is not supported now and completion will not be activated. To solve this we should use `__xonsh__.execer.parser.lexer.split(line)` instead of regexp. PRs are welcome!
 
 ## Development
 * To switch on the debug mode run `$XONTRIB_ARGCOMPLETE_DEBUG = True`.
