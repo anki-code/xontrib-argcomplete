@@ -13,6 +13,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     """
     Adding support of argcomplete to xonsh.
     """
+    debug = __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False)
     py = None
     file = None
     m = re.match('^(python[0-9.]*|xonsh) ([\']*.+?(\\.py[0-9.]*|\\.xsh)[\']*)', line)
@@ -46,20 +47,17 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
                             file = which_maybe_file
 
     if not file:
-        if __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False):
-            return ((prefix, 'xontrib-argcomplete DEBUG: filename not found'), len(prefix))
-        return None
+        return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: filename not found'), len(prefix))
 
     file = file[1:-1] if file[0] == "'" and file[-1] == "'" else file
     if not Path(file).exists():
-        if __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False):
-            return ((prefix, 'xontrib-argcomplete DEBUG: file does not exists'), len(prefix))
-        return None
+        return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: file does not exists'), len(prefix))
 
-    if 'text' not in _get_subproc_output(['file', file]):
-        if __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False):
-            return ((prefix, 'xontrib-argcomplete DEBUG: file type is not text'), len(prefix))
-        return None
+    cmd_file_type = ['file', '--mime-type', '--brief', file]
+    if not debug:
+        cmd_file_type += ['2>', '/dev/null']
+    if _get_subproc_output(cmd_file_type).startswith('text'):
+        return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: file type is not text'), len(prefix))
 
     found_argcomplete = False
     with open(file) as f:
@@ -74,7 +72,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
                     if m:
                         py = m.group(1)
                         if not Path(py).exists():
-                            if __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False):
+                            if debug:
                                 return ((prefix, 'xontrib-argcomplete DEBUG: the python/xonsh path in the script`s shebang does not exists'), len(prefix))
                             py = None
 
@@ -88,9 +86,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
         tokens = set([t.replace(r'\ ', ' ') for t in output.split('\n') if prefix in t])
 
         if len(tokens) == 0:
-            if __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False):
-                return ((prefix, 'xontrib-argcomplete DEBUG: completions not found'), len(prefix))
-            return None
+            return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: completions not found'), len(prefix))
 
         return (tokens, len(prefix))
 
