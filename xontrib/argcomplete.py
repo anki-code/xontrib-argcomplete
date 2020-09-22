@@ -4,7 +4,9 @@ import re
 from pathlib import Path
 from shutil import which
 
-def _get_subproc_output(cmds):
+def _get_subproc_output(cmds, debug=False):
+    if not debug:
+        cmds += ['2>', '/dev/null']    
     result = __xonsh__.subproc_captured_object(cmds)
     result.rtn  # workaround https://github.com/xonsh/xonsh/issues/3394
     return result.output
@@ -40,7 +42,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
                         file = str(which_maybe_file)
                     else:
                         try:
-                            which_maybe_file = _get_subproc_output(['which', maybe_file, '2>', '/dev/null']).strip()
+                            which_maybe_file = _get_subproc_output(['which', maybe_file], debug).strip()
                         except:
                             return None
                         if which_maybe_file and Path(which_maybe_file).exists():
@@ -53,10 +55,7 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     if not Path(file).exists():
         return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: file does not exists'), len(prefix))
 
-    cmd_file_type = ['file', '--mime-type', '--brief', file]
-    if not debug:
-        cmd_file_type += ['2>', '/dev/null']
-    file_type = _get_subproc_output(cmd_file_type).strip()
+    file_type = _get_subproc_output(['file', '--mime-type', '--brief', file], debug).strip()
     if not file_type.startswith('text'):
         return None if not debug else ((prefix, f'xontrib-argcomplete DEBUG: file type is not text: {file_type}'), len(prefix))
 
