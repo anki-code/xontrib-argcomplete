@@ -56,8 +56,9 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     cmd_file_type = ['file', '--mime-type', '--brief', file]
     if not debug:
         cmd_file_type += ['2>', '/dev/null']
-    if _get_subproc_output(cmd_file_type).startswith('text'):
-        return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: file type is not text'), len(prefix))
+    file_type = _get_subproc_output(cmd_file_type).strip()
+    if file_type.startswith('text'):
+        return None if not debug else ((prefix, f'xontrib-argcomplete DEBUG: file type is not text: {file_type}'), len(prefix))
 
     found_argcomplete = False
     with open(file) as f:
