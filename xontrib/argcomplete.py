@@ -11,47 +11,52 @@ def _get_subproc_output(cmds, debug=False):
     result.rtn  # workaround https://github.com/xonsh/xonsh/issues/3394
     return result.output
 
+def _get_executor(arg):
+    m = re.match('^(python[0-9.]*|xonsh)$', arg)
+    return m.group(1) if m else None
+
+def _get_filepath(arg):
+    return arg.strip("'").rstrip('\n')
+
 def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     """
-    Adding support of argcomplete to xonsh.
+    Argcomplete support to tab completion of python and xonsh scripts in xonsh shell.
     """
     debug = __xonsh__.env.get('XONTRIB_ARGCOMPLETE_DEBUG', False)
     py = None
     file = None
-    m = re.match('^(python[0-9.]*|xonsh) ([\']*.+?(\\.py[0-9.]*|\\.xsh)[\']*)', line)
-    if m:
-        py = m.group(1)
-        file = m.group(2)
-    else:
-        m = re.match('^([\']*.+?(\\.py|\\.xsh)[\']*)', line)
-        if m:
-            file = m.group(1)
-            py = 'xonsh' if file.endswith('.xsh') else 'python'
-        else:
-            m = re.match('^(.+?)(\\s+|$)', line)
-            if m:
-                if not m.group(2):
-                    return None
 
-                maybe_file = m.group(1)
-                if Path(maybe_file).exists():
-                    file = str(maybe_file)
-                else:
-                    which_maybe_file = which(maybe_file)
-                    if which_maybe_file and Path(which_maybe_file).exists():
-                        file = str(which_maybe_file)
-                    else:
-                        try:
-                            which_maybe_file = _get_subproc_output(['which', maybe_file], debug).strip()
-                        except:
-                            return None
-                        if which_maybe_file and Path(which_maybe_file).exists():
-                            file = which_maybe_file
+    args = __xonsh__.execer.parser.lexer.split(line)
+
+    if len(args) == 0:
+        return None
+
+    py = _get_executor(args[0])
+    if py:
+        file = _get_filepath(args[1])
+    else:
+        file = _get_filepath(args[0])
+
+        if file.endswith('.xsh'):
+            py = 'xonsh'
+        elif file.endswith('.py'):
+            py = 'python'
+
+    if not Path(file).exists():
+        which_maybe_file = which(file)
+        if which_maybe_file and Path(which_maybe_file).exists():
+            file = str(which_maybe_file)
+        else:
+            try:
+                which_maybe_file = _get_subproc_output(['which', file], debug).strip()
+            except:
+                return None
+            if which_maybe_file and Path(which_maybe_file).exists():
+                file = which_maybe_file
 
     if not file:
-        return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: filename not found'), len(prefix))
+        return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: path to file not found'), len(prefix))
 
-    file = file[1:-1] if file[0] == "'" and file[-1] == "'" else file
     if not Path(file).exists():
         return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: file does not exists'), len(prefix))
 
