@@ -56,7 +56,7 @@ proto --proto tt<Tab>  # Suggestions: http https
 
 ## Known issues
 
-Current version was tested on Linux and Mac.
+Windows is not supported. PRs are welcome!
 
 ## Development
 * To switch on the debug mode run `$XONTRIB_ARGCOMPLETE_DEBUG = True`.
