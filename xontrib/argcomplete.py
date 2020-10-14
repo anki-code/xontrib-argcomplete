@@ -33,7 +33,10 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
 
     py = _get_executor(args[0])
     if py:
-        file = _get_filepath(args[1])
+        if len(args) > 1:
+            file = _get_filepath(args[1])
+        else:
+            return None if not debug else ((prefix, 'xontrib-argcomplete DEBUG: file not found'), len(prefix))
     else:
         file = _get_filepath(args[0])
 
