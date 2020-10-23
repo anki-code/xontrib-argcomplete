@@ -62,3 +62,7 @@ Windows is not supported. PRs are welcome!
 * To switch on the debug mode run `$XONTRIB_ARGCOMPLETE_DEBUG = True`.
 * [Argcomplete environment variables](https://github.com/kislyuk/argcomplete/issues/319#issuecomment-693295017)
 * [Argcomplete documentation](https://kislyuk.github.io/argcomplete/)
+
+## Links 
+* This package is the part of [ergopack](https://github.com/anki-code/xontrib-ergopack) - the pack of ergonomic xontribs.
+* This package was created with [xontrib cookiecutter template](https://github.com/xonsh/xontrib-cookiecutter).
