@@ -70,7 +70,10 @@ def _xontrib_argcomplete_completer(prefix, line, begidx, endidx, ctx):
     found_argcomplete = False
     with open(file) as f:
         for x in range(10):
-            fline = next(f)
+            try:
+                fline = next(f)
+            except:
+                break
             if x == 0 and not py:
                 m = re.match('.*env (python[0-9.]*|xonsh).*', fline)
                 if m:
