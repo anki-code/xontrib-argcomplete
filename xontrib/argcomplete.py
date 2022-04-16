@@ -12,6 +12,7 @@ from xonsh.completers.tools import (
     completion_from_cmd_output,
 )
 from xonsh.parsers.completion_context import CommandContext
+import xonsh.platform as xp
 
 # without this, all names will be imported in the context
 __all__ = ()
@@ -93,10 +94,16 @@ def python_argcomplete(ctx: CommandContext):
         if _python_argcomplete_scan_head(file_path):
             args = [cmd, file_path]
 
-    defined_exes = XSH.env.get("XONSH_ARGCOMPLETE_COMMANDS") or set()
-    if cmd in defined_exes:
-        # Handle the case where the first argument is an executable
-        args = [cmd]
+    if not args:
+        defined_exes = XSH.env.get("XONSH_ARGCOMPLETE_COMMANDS") or set()
+        if cmd in defined_exes:
+            # Handle the case where the first argument is an executable
+            args = [cmd]
+
+    if not args:
+        # handle case where script is executed like `./script.py`, `./script.xsh`
+        if os.path.exists(cmd) and _python_argcomplete_scan_head(cmd):
+            args = [cmd]
 
     if args:
         # todo: return dict once supported
@@ -125,6 +132,4 @@ xonsh_entrypoint(XSH)
 #  1. global completion ( disabled by default.
 #       can be controlled by env variable as it will make other completions slow as well)
 #       - https://kislyuk.github.io/argcomplete/#global-completion
-#  2. ./script.py or python script.py completion. it should be called with subprocess with tmp-file path completion
-#       ii. the script file with a shebang (``$ ./script.py`` ...)
 #

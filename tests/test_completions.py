@@ -1,8 +1,13 @@
+import os
+
 import pytest
 
 
 @pytest.fixture(autouse=True)
 def argcomplete(load_xontrib, xession, os_env):
+    # relative paths should work now
+    os.chdir(os.path.dirname(__file__))
+
     xession.env["PATH"] = os_env["PATH"]
     return load_xontrib("argcomplete")
 
@@ -63,10 +68,18 @@ class TestScripts:
     @pytest.mark.parametrize(
         "cmd",
         [
+            "./proto",
             "./proto.py",
             "./proto.xsh",
         ],
     )
-    def test_shebang_scripts(self, check_completer, cmd, file):
-        out = check_completer(f"{cmd} {file}", prefix="-")
-        assert out.issuperset({"--proto"})
+    @pytest.mark.parametrize(
+        "line, expected",
+        [
+            ("-", {"--proto", "-h"}),
+            ("--proto ", {"http", "https", "rsync", "ssh", "wss"}),
+        ],
+    )
+    def test_shebang_scripts(self, check_completer, cmd, line, expected):
+        out = check_completer(f"{cmd} {line}", prefix=None)
+        assert out.issuperset(expected)
