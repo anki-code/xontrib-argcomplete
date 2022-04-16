@@ -5,7 +5,7 @@ import subprocess as sp
 import tempfile
 from pathlib import Path
 
-from xonsh.built_ins import XonshSession
+from xonsh.built_ins import XonshSession, XSH
 from xonsh.completers import completer
 from xonsh.completers.tools import (
     contextual_command_completer,
@@ -13,6 +13,8 @@ from xonsh.completers.tools import (
 )
 from xonsh.parsers.completion_context import CommandContext
 
+# without this, all names will be imported in the context
+__all__ = ()
 
 def _get_executor(arg):
     m = re.match("^(python[0-9.]*|xonsh)$", arg)
@@ -121,7 +123,6 @@ def _run_binary(exe: str, line: str, begidx: "int|None" = None) -> "None|str":
     )
     env.update(XSH.env.detype())
 
-    out = None
     try:
         # pytest 8>&1 9>&2 1>/dev/null 2>&1
         # fd 9 is used for debug output
@@ -151,31 +152,31 @@ def python_argcomplete(ctx: CommandContext):
     if not ctx.args:
         return
 
-    line = ctx.get_words()
-    if ctx.prefix:
-        line += " " + ctx.prefix
-
-    executable = ctx.args[0].raw_value
+    line = ctx.text_before_cursor
+    executable = ctx.args[0].value
+    defined_exes = XSH.env.get("XONSH_ARGCOMPLETE_COMMANDS") or set()
+    if executable not in defined_exes:
+        return
     return _get_completions(executable, line, ctx.begidx), False
 
 
 def xonsh_entrypoint(xsh: XonshSession, **_):
     # todo: xsh.completers.add_one_completer
     completer.add_one_completer("argcomplete", python_argcomplete, "<import")
+    known_clis = {
+        "pytest",
+    }
+    xsh.env.register(
+        name="XONSH_ARGCOMPLETE_COMMANDS",
+        default=known_clis,
+        doc="register a command that uses argcomplete",
+        doc_default=f"Some of the popular commands that use argcomplete is added by default. {known_clis}",
+    )
 
 
-if __name__ == "__main__":
-    from xonsh.built_ins import XSH
-
-    XSH.load()
-    xonsh_entrypoint(XSH)
-    out = _get_completions("pytest", "pytest -")
-    from pprint import pprint
-
-    pprint(list(out))
+xonsh_entrypoint(XSH)
 
 
 # todo:
 #  1. global completion ( disabled by default. can be controlled by env variable)
 #  2. ./script.py or python script.py completion. it should be called with subprocess with tmp-file path completion
-#  3. integrate this to xontrib-argcomplete
