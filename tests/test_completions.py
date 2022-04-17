@@ -55,9 +55,6 @@ class TestScripts:
             pytest.param(
                 "xonsh",
                 "proto.xsh",
-                marks=pytest.mark.xfail(
-                    reason="the xompletions/xonsh is interfering and will fail"
-                ),
             ),
         ],
     )

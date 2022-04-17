@@ -112,8 +112,8 @@ def python_argcomplete(ctx: CommandContext):
 
 
 def xonsh_entrypoint(xsh: XonshSession, **_):
-    # todo: xsh.completers.add_one_completer
-    completer.add_one_completer("argcomplete", python_argcomplete, "<import")
+    # todo: xsh.completers.add_one_completer once it is there
+    completer.add_one_completer("argcomplete", python_argcomplete, "<xompleter")
     known_clis = {
         "pytest",
     }
