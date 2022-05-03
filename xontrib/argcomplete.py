@@ -91,7 +91,7 @@ def python_argcomplete(ctx: CommandContext):
     if ctx.arg_index > 1 and _get_executor(cmd):
         # Handle the case where the script is executed with Python/xonsh binary
         file_path = ctx.args[1].value
-        if _python_argcomplete_scan_head(file_path):
+        if os.path.isfile(file_path) and _python_argcomplete_scan_head(file_path):
             args = [cmd, file_path]
 
     if not args:
