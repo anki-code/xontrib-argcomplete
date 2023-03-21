@@ -20,24 +20,12 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 
 ## Usage
 
-Before usage you must [add the argcomplete support to your script](https://kislyuk.github.io/argcomplete/#synopsis). The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
+First of all you need to [add the argcomplete support to your script](https://kislyuk.github.io/argcomplete/#synopsis):
+* The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file ([example](https://github.com/anki-code/xontrib-argcomplete/blob/37e24660351780501eed64a2a77cb2a3309c109c/tests/proto.py#L2)).
+* Additional `.completer` was set for `add_argument` ([example](https://github.com/anki-code/xontrib-argcomplete/blob/37e24660351780501eed64a2a77cb2a3309c109c/tests/proto.py#L7)).
+* `argcomplete.autocomplete(parser)` added before `parser.parse_args()` ([example](https://github.com/anki-code/xontrib-argcomplete/blob/37e24660351780501eed64a2a77cb2a3309c109c/tests/proto.py#L8)).
 
-The argcomplete xonsh completer will be activated with this cases:
-```xsh
-python script.py
-./script.py
-./path/script.py
-
-xonsh script.xsh
-./script.xsh
-./path/script.xsh
-
-# scripts without extension should have "env python" or "env xonsh" or path to python/xonsh in the shebang
-./script
-script    # script should be found in $PATH
-```
-
-## Example
+Example for [`proto.py`](https://github.com/anki-code/xontrib-argcomplete/blob/master/tests/proto.py):
 ```xsh
 xpip install xontrib-argcomplete
 xontrib load argcomplete
@@ -52,6 +40,21 @@ python proto.py <Tab>  # Suggestions: --help --proto -h
 
 $PATH.append($PWD)
 proto --proto tt<Tab>  # Suggestions: http https
+```
+
+The argcomplete xonsh completer will be activated with this cases:
+```xsh
+python script.py <Tab>
+./script.py <Tab>
+./path/script.py <Tab>
+
+xonsh script.xsh <Tab>
+./script.xsh <Tab>
+./path/script.xsh <Tab>
+
+# scripts without extension should have "env python" or "env xonsh" or path to python/xonsh in the shebang
+./script <Tab>
+script <Tab>    # script should be found in $PATH
 ```
 
 ## Known issues
