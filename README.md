@@ -25,7 +25,7 @@ First of all you need to [add the argcomplete support to your script](https://ki
 * Additional `.completer` was set for `add_argument` ([example](https://github.com/anki-code/xontrib-argcomplete/blob/37e24660351780501eed64a2a77cb2a3309c109c/tests/proto.py#L7)).
 * `argcomplete.autocomplete(parser)` added before `parser.parse_args()` ([example](https://github.com/anki-code/xontrib-argcomplete/blob/37e24660351780501eed64a2a77cb2a3309c109c/tests/proto.py#L8)).
 
-Example for [`proto.py`](https://github.com/anki-code/xontrib-argcomplete/blob/master/tests/proto.py):
+Example for [`proto.py`](https://github.com/anki-code/xontrib-argcomplete/blob/master/tests/proto.py) sample:
 ```xsh
 xpip install xontrib-argcomplete
 xontrib load argcomplete
