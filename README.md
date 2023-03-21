@@ -23,7 +23,7 @@ echo 'xontrib load argcomplete' >> ~/.xonshrc
 Before usage you must [add the argcomplete support to your script](https://kislyuk.github.io/argcomplete/#synopsis). The `PYTHON_ARGCOMPLETE_OK` marker should be found in the first 10 lines of the file.
 
 The argcomplete xonsh completer will be activated with this cases:
-```bash
+```xsh
 python script.py
 ./script.py
 ./path/script.py
@@ -38,7 +38,7 @@ script    # script should be found in $PATH
 ```
 
 ## Example
-```bash
+```xsh
 xpip install xontrib-argcomplete
 xontrib load argcomplete
 
