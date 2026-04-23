@@ -1,4 +1,4 @@
-#!/usr/bin/env xonsh
+"""Argcomplete support for tab completion of Python and Xonsh scripts in the Xonsh shell."""
 import os
 import re
 import subprocess as sp
