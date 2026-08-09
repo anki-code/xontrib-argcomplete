@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xontrib-argcomplete"
+version = "0.3.5"
+license = {text = "BSD"}
+authors = [{name = "anki-code", email = "xonsh@googlegroups.com"}]
+description = "Argcomplete support for python and xonsh scripts in xonsh shell."
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = ["xonsh >= 0.12.1"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Unix Shell",
+    "Topic :: System :: Shells",
+    "Topic :: System :: System Shells",
+    "Topic :: Terminals",
+    "Topic :: System :: Networking",
+    "License :: OSI Approved :: BSD License",
+]
+
+[project.urls]
+Homepage = "https://github.com/anki-code/xontrib-argcomplete"
+Documentation = "https://github.com/anki-code/xontrib-argcomplete/blob/master/README.md"
+Code = "https://github.com/anki-code/xontrib-argcomplete"
+"Issue tracker" = "https://github.com/anki-code/xontrib-argcomplete/issues"
+
+[tool.setuptools]
+packages = ["xontrib"]
